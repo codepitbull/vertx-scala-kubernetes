@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: vertx
+  labels:
+    name: hazelcast
+spec:
+  template:
+    metadata:
+      labels:
+        name: hazelcast
+    spec:
+      containers:
+      - name: vertx
+        image: io.vertx/vertx-scala-kubernetes-demo:v0.1-SNAPSHOT
+        imagePullPolicy: Never
+        env:
+          - name: POD_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
+          - name: "DNS_DOMAIN"
+            value: "cluster.local"
+        ports:
+          - name: hazelcast
+            containerPort: 5701
+          - name: vertx
+            containerPort: 8666
