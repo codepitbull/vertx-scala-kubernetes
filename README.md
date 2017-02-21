@@ -46,20 +46,25 @@ On mac do:
 
 ##Setup
 First we need to start a clean Minikube instance with the following command:
+
 ```minikube start```
 
 To open the dashboard you can now use:
+
 ```minikube dashboard```
 
 Now we need to prepare for building the Docker-container. To avoid complications we will build the image 
-inside of Minikube. To allow _sbt_ to perform this action we first have to prepare the shell: 
+inside of Minikube. To allow _sbt_ to perform this action we first have to prepare the shell:
+ 
 ```eval $(minikube docker-env)```
 
 In the project root we can now start the build: 
+
 ```sbt clean docker``` 
 
 The Docker image is now ready for getting deployed. Execute the following commannd to
-create a Hazelcast-service (not needed in this tutorial but a starting point for further experiments).
+create a Hazelcast-service (not needed in this tutorial but a starting point for further experiments):
+
 ```kubectl create -f kubernetes/hazelcast-service.yaml```
 
 And now we deploy the actual application, expose it and check where we can reach the endpoints:
@@ -75,6 +80,7 @@ demo application.
 Check the logs in the Dashboard.
 
 And now scale the cluster and see how everything is automatically taken care of:
+
 ```kubectl scale deployment vertx --replicas 2````
 
 #Things to remember
